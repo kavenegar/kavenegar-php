@@ -18,6 +18,8 @@
         "psr-4": {
             "Kavenegar\\": "src/"
         }
-    }
+    },
+    "minimum-stability" : "dev",
+    "prefer-stable" : true
 }
 
