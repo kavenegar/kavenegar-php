@@ -22,12 +22,8 @@ Usage
 ```php
 require __DIR__ . '/vendor/autoload.php';
 
-use \Kavenegar\KavenegarApi as KavenegarApi;
-use \Kavenegar\Exceptions\ApiException as ApiException;
-use \Kavenegar\Exceptions\HttpException as HttpException;
-
 try{
-	$api = new KavenegarApi({ "API Key" });
+	$api = new \Kavenegar\KavenegarApi({ "API Key" });
 	$sender = "10004346";
 	$message = "خدمات پیام کوتاه کاوه نگار";
 	$receptor = array("09123456789","09367891011");
@@ -45,11 +41,11 @@ try{
 		}		
 	}
 }
-catch(ApiException $e){
+catch(\Kavenegar\Exceptions\ApiException $e){
 	// در صورتی که خروجی وب سرویس 200 نباشد این خطا رخ می دهد
 	echo $e->errorMessage();
 }
-catch(HttpException $e){
+catch(\Kavenegar\Exceptions\HttpException $e){
 	// در زمانی که مشکلی در برقرای ارتباط با وب سرویس وجود داشته باشد این خطا رخ می دهد
 	echo $e->errorMessage();
 }
