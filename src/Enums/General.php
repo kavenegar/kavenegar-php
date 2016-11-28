@@ -2,8 +2,7 @@
 
 namespace Kavenegar\Enums;
 
-final class General {
+abstract class General {
 	const  Enabled = "enabled";
     const  Disabled = "disabled";
 }
-?>
