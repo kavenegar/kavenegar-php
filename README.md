@@ -35,7 +35,7 @@ $ composer update
 Usage
 -----
 
-Well, There is an example to Send SMS by C#.
+Well, There is an example to Send SMS by PHP.
 
 ```php
 require __DIR__ . '/vendor/autoload.php';
