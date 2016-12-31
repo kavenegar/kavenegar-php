@@ -11,6 +11,9 @@ First of all, You need to make an account on Kavenegar from <a href="https://pan
 <p>
 After that you just need to pick API-KEY up from <a href="http://panel.kavenegar.com/Client/setting/index">My Account</a> section.
 </p>
+<hr>
+
+Use in these ways : 
 
 ```php
 composer require kavenegar/php
