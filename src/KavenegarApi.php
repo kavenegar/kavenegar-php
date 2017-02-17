@@ -258,7 +258,7 @@ class KavenegarApi
         return $this->execute($path, $params);
     }
     
-    public function VerifyLookup($receptor, $token, $token2, $token3, $template, $type)
+    public function VerifyLookup($receptor, $token, $token2, $token3, $template, $type = null)
     {
         $path   = $this->get_path("lookup", "verify");
         $params = array(
