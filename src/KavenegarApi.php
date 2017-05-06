@@ -26,12 +26,12 @@ class KavenegarApi
         $this->apiKey = $apiKey;
     }   
     
-	private function get_path($method, $base = 'sms')
+	protected function get_path($method, $base = 'sms')
     {
         return sprintf(self::APIPATH, $this->apiKey, $base, $method);
     }
 	
-	private function execute($url, $data = null)
+	protected function execute($url, $data = null)
     {        
         $headers       = array(
             'Accept: application/json',
