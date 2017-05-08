@@ -260,7 +260,7 @@ class KavenegarApi
     
     public function VerifyLookup($receptor, $token, $token2, $token3, $template, $type = null)
     {
-        return VerifyLookupV2($receptor, $template, $type, $token, $token2, $token3, null);
+        return $this->VerifyLookupV2($receptor, $template, $type, $token, $token2, $token3, null);
     }  
 
     public function VerifyLookupV2($receptor, $template, $type = null, $token, $token2, $token3, $token10)
