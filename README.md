@@ -41,7 +41,7 @@ Well, There is an example to Send SMS by PHP.
 require __DIR__ . '/vendor/autoload.php';
 
 try{
-	$api = new \Kavenegar\KavenegarApi({ "API Key" });
+	$api = new \Kavenegar\KavenegarApi( "API Key" );
 	$sender = "10004346";
 	$message = "خدمات پیام کوتاه کاوه نگار";
 	$receptor = array("09123456789","09367891011");
@@ -104,7 +104,7 @@ sample output
 ```
 
 
-#Contribution
+## Contribution
 
 Bug fixes, docs, and enhancements welcome! Please let us know <a href="mailto:support@kavenegar.com?Subject=SDK" target="_top">support@kavenegar.com</a>
 
