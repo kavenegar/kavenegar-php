@@ -110,7 +110,6 @@ Bug fixes, docs, and enhancements welcome! Please let us know <a href="mailto:su
 
 <hr>
 
-<div dir='rtl'>
 <div dir="rtl"> 
 	
 
@@ -123,11 +122,11 @@ Bug fixes, docs, and enhancements welcome! Please let us know <a href="mailto:su
 
 ##### ساخت حساب کاربری
 
-اگر در وب سرویس کاوه نگار عضو نیستید میتوانید از [لینک عضویت](http://panel.kavenegar.com/client/membership/register) ثبت نام نمایید و اکانت آزمایشی برای تست API دریافت نمایید.
+اگر در وب سرویس کاوه نگار عضو نیستید میتوانید از [لینک عضویت](http://panel.kavenegar.com/client/membership/register) ثبت نام  و اکانت آزمایشی برای تست API دریافت نمایید.
 
 ##### مستندات
 
-برای مشاهده اطلاعات کامل مستندات [وب سرویس پیامک](http://kavenegar.com/وب-سرویس-پیامک.html) پیامک به صفحه [مستندات وب سرویس](http://kavenegar.com/rest.html) مراجعه کنید.
+برای مشاهده اطلاعات کامل مستندات [وب سرویس پیامک](http://kavenegar.com/وب-سرویس-پیامک.html)  به صفحه [مستندات وب سرویس](http://kavenegar.com/rest.html) مراجعه نمایید.
 
 ##### راهنمای فارسی
 
@@ -139,6 +138,5 @@ Bug fixes, docs, and enhancements welcome! Please let us know <a href="mailto:su
  اگر در استفاده از کیت های سرویس کاوه نگار مشکلی یا پیشنهادی  داشتید ما را با یک Pull Request  یا  ارسال ایمیل به support@kavenegar.com  خوشحال کنید.
  
 
-</div>
  
 </div>
