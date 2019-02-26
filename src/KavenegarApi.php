@@ -10,10 +10,9 @@ use Kavenegar\Enums\General;
 
 class KavenegarApi
 {
-    protected $apiKey;
-    const APIPATH = "https://api.kavenegar.com/v1/%s/%s/%s.json/";
-    const VERSION = "1.1.0";
-    public function __construct($apiKey)
+    const APIPATH = "%s://api.kavenegar.com/v1/%s/%s/%s.json/";
+    const VERSION = "1.2.2";
+    public function __construct($apiKey,$insecure=false)
     {
         if (!extension_loaded('curl')) {
             die('cURL library is not loaded');
@@ -23,12 +22,13 @@ class KavenegarApi
             die('apiKey is empty');
             exit;
         }
-        $this->apiKey = $apiKey;
+        $this->apiKey = trim($apiKey);
+        $this->insecure = $insecure;
     }   
     
 	protected function get_path($method, $base = 'sms')
     {
-        return sprintf(self::APIPATH, $this->apiKey, $base, $method);
+        return sprintf(self::APIPATH,$this->insecure==true ? "http": "https", $this->apiKey, $base, $method);
     }
 	
 	protected function execute($url, $data = null)
