@@ -9,5 +9,3 @@ class HttpException extends BaseRuntimeException
         return 'HttpException';
     }	
 }
-
-?>
