@@ -7,5 +7,3 @@ abstract class ApiLogs extends General {
     const  Enabled = "enabled";
     const  Disabled = "disabled";
 }
-
-?>

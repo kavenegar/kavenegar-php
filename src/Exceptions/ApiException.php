@@ -9,5 +9,3 @@ class ApiException extends BaseRuntimeException
         return 'ApiException';
     }
 }
-
-?>
