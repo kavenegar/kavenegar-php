@@ -1,6 +1,8 @@
 
 # kavenegar-PHP
-
+[![Latest Stable Version](https://poser.pugx.org/kavenegar/php/v/stable.svg)](https://packagist.org/packages/kavenegar/php)
+[![Total Downloads](https://poser.pugx.org/kavenegar/php/downloads.svg)](https://packagist.org/packages/kavenegar/php)	
+	
 # <a href="http://kavenegar.com/rest.html">Kavenegar RESTful API Document</a>
 If you need to future information about API document Please visit RESTful Document
 
@@ -41,7 +43,7 @@ Well, There is an example to Send SMS by PHP.
 require __DIR__ . '/vendor/autoload.php';
 
 try{
-	$api = new \Kavenegar\KavenegarApi({ "API Key" });
+	$api = new \Kavenegar\KavenegarApi( "API Key" );
 	$sender = "10004346";
 	$message = "خدمات پیام کوتاه کاوه نگار";
 	$receptor = array("09123456789","09367891011");
@@ -104,29 +106,45 @@ sample output
 ```
 
 
-#Contribution
+## Contribution
 
 Bug fixes, docs, and enhancements welcome! Please let us know <a href="mailto:support@kavenegar.com?Subject=SDK" target="_top">support@kavenegar.com</a>
 
 <hr>
 
 <div dir='rtl'>
+	
+## راهنما
 
-<h4 id="">راهنمای فارسی</h4>
-<h5 id="-1">راهنما</h5>
-<p>در صورتی که مایل هستید راهنمای فارسی کیت توسعه کاوه نگار را مطالعه کنید به صفحه
-<a href="http://kavenegar.com/sdk.html">کد ارسال پیامک</a> 
-مراجعه کنید.</p>
-<h5 id="-2">مستندات</h5>
-<p>برای مطالعه مستندات کار با
-<a href="http://kavenegar.com"> وب سرویس اس ام اس</a>
-کاوه نگار به صفحه <a href="http://kavenegar.com/rest.html">مستندات</a>مراجعه کنید</p>
-<h5 id="-3">معرفی وب سرویس کاوه نگار</h5>
-<p>برای مشاهده ویژگی های وب سرویس پیامک کاوه نگار به <a href="http://kavenegar.com/%D9%88%D8%A8%D8%B3%D8%B1%D9%88%DB%8C%D8%B3-%D9%BE%DB%8C%D8%A7%D9%85%DA%A9.html">صفحه  وب سرویس</a>مراجعه نمائید.</p>
-<h5 id="-4">ایجاد حساب کاربری</h5>
-<p>و بالاخره اگر در استفاده از سرویس کاوه نگار مشکلی داشتید یا پیشنهاد همکاری  بود لطفا حتما به ما اطلاع دهید.</p>
-<p><a href="mailto:support@kavenegar.com">support@kavenegar.com</a></p>
+### معرفی سرویس کاوه نگار
+
+کاوه نگار یک وب سرویس ارسال و دریافت پیامک و تماس صوتی است که به راحتی میتوانید از آن استفاده نمایید.
+
+### ساخت حساب کاربری
+
+اگر در وب سرویس کاوه نگار عضو نیستید میتوانید از [لینک عضویت](http://panel.kavenegar.com/client/membership/register) ثبت نام  و اکانت آزمایشی برای تست API دریافت نمایید.
+
+### مستندات
+
+برای مشاهده اطلاعات کامل مستندات [وب سرویس پیامک](http://kavenegar.com/وب-سرویس-پیامک.html)  به صفحه [مستندات وب سرویس](http://kavenegar.com/rest.html) مراجعه نمایید.
+
+### راهنمای فارسی
+
+در صورتی که مایل هستید راهنمای فارسی کیت توسعه کاوه نگار را مطالعه کنید به صفحه [کد ارسال پیامک](http://kavenegar.com/sdk.html) مراجعه نمایید.
+
+### اطالاعات بیشتر
+برای مطالعه بیشتر به صفحه معرفی
+[وب سرویس اس ام اس ](http://kavenegar.com)
+کاوه نگار
+مراجعه نمایید .
+
+ اگر در استفاده از کیت های سرویس کاوه نگار مشکلی یا پیشنهادی  داشتید ما را با یک Pull Request  یا  ارسال ایمیل به support@kavenegar.com  خوشحال کنید.
+ 
+##
+![http://kavenegar.com](http://kavenegar.com/public/images/logo.png)		
+
+[http://kavenegar.com](http://kavenegar.com)	
+
 </div>
 
-</p>
-</div>
+
