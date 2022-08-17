@@ -5,27 +5,26 @@ namespace Kavenegar;
 use Kavenegar\Exceptions\ApiException;
 use Kavenegar\Exceptions\HttpException;
 use Kavenegar\Exceptions\RuntimeException;
-use Kavenegar\Enums\ApiLogs ;
+use Kavenegar\Exceptions\NotProperlyConfiguredException;
+use Kavenegar\Enums\ApiLogs;
 use Kavenegar\Enums\General;
 
 class KavenegarApi
 {
     const APIPATH = "%s://api.kavenegar.com/v1/%s/%s/%s.json/";
     const VERSION = "1.2.2";
-    public function __construct($apiKey,$insecure=false)
+    public function __construct($apiKey, $insecure=false)
     {
         if (!extension_loaded('curl')) {
-            die('cURL library is not loaded');
-            exit;
+            throw new NotProperlyConfiguredException('cURL library is not loaded');
         }
         if (is_null($apiKey)) {
-            die('apiKey is empty');
-            exit;
+            throw new NotProperlyConfiguredException('apiKey is empty');
         }
         $this->apiKey = trim($apiKey);
         $this->insecure = $insecure;
     }   
-    
+
 	protected function get_path($method, $base = 'sms')
     {
         return sprintf(self::APIPATH,$this->insecure==true ? "http": "https", $this->apiKey, $base, $method);
