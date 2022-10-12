@@ -110,15 +110,18 @@ class KavenegarApi
         if (!is_null($localmessageid) && !is_array($localmessageid)) {
             $localmessageid = array_fill(0, $repeat, $localmessageid);
         }
+	$params = [
+            'receptor'       => json_encode($receptor),
+            'sender'         => json_encode($sender),
+            'message'        => json_encode($message),
+            'date'           => $date,
+            'type'           => json_encode($type),
+        ];
+        if (! is_null($localmessageid) && ! is_array($localmessageid)) {
+            $localmessageid = array_fill(0, $repeat, $localmessageid);
+            $params['localmessageids'] = json_encode($localmessageid);
+        }
         $path   = $this->get_path("sendarray");
-        $params = array(
-            "receptor" => json_encode($receptor),
-            "sender" => json_encode($sender),
-            "message" => json_encode($message),
-            "date" => $date,
-            "type" => json_encode($type),
-            "localmessageid" => json_encode($localmessageid)
-        );
         return $this->execute($path, $params);
     }
     
