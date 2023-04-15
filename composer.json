@@ -1,9 +1,9 @@
 {
-    "name": "kavenegar/php",
+    "name": "sjavadez/php",
     "type": "library",
     "description": "A PHP wrapper for Kavenegar's API",
     "keywords": ["kavenegar", "sms", "api"],
-    "homepage": "http://github.com/Kavenegar/kavenegar-php",
+    "homepage": "https://github.com/sjavadez/kavenegar-php",
     "license": "MIT",
     "authors": [
         {
