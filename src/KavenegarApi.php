@@ -12,7 +12,10 @@ class KavenegarApi
 {
     const APIPATH = "%s://api.kavenegar.com/v1/%s/%s/%s.json/";
     const VERSION = "1.2.2";
-    public function __construct($apiKey,$insecure=false)
+
+    private $timeout;
+
+    public function __construct($apiKey,$insecure=false,$timeout=null)
     {
         if (!extension_loaded('curl')) {
             die('cURL library is not loaded');
@@ -22,9 +25,14 @@ class KavenegarApi
             die('apiKey is empty');
             exit;
         }
+        if (!is_numeric($timeout)) {
+            die('timeout must be number');
+            exit;
+        }
         $this->apiKey = trim($apiKey);
         $this->insecure = $insecure;
-    }   
+        $this->timeout = $timeout;
+    }
     
 	protected function get_path($method, $base = 'sms')
     {
@@ -50,7 +58,11 @@ class KavenegarApi
         curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($handle, CURLOPT_POST, true);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $fields_string);
-        
+
+        if (! empty($this->timeout)) {
+            curl_setopt($handle, CURLOPT_TIMEOUT, $this->timeout);
+        }
+
         $response     = curl_exec($handle);
         $code         = curl_getinfo($handle, CURLINFO_HTTP_CODE);
         $content_type = curl_getinfo($handle, CURLINFO_CONTENT_TYPE);
@@ -289,6 +301,22 @@ class KavenegarApi
             "localid" => $localid
         );
         return $this->execute($path, $params); 
+    }
+
+    /**
+     * @return float|int|string
+     */
+    public function getTimeout()
+    {
+        return $this->timeout;
+    }
+
+    /**
+     * @param float|int|string $timeout
+     */
+    public function setTimeout($timeout)
+    {
+        $this->timeout = $timeout;
     }
 }
 ?>
