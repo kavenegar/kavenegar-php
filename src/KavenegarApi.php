@@ -30,10 +30,10 @@ class KavenegarApi
     {
         return sprintf(self::APIPATH,$this->insecure==true ? "http": "https", $this->apiKey, $base, $method);
     }
-	
-	protected function execute($url, $data = null)
-    {        
-        $headers       = array(
+
+    protected function execute($url, $data = null)
+    {
+        $headers = array(
             'Accept: application/json',
             'Content-Type: application/x-www-form-urlencoded',
             'charset: utf-8'
@@ -50,18 +50,22 @@ class KavenegarApi
         curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($handle, CURLOPT_POST, true);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $fields_string);
-        
-        $response     = curl_exec($handle);
-        $code         = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+
+        // Set the timeout value (in seconds)
+        $timeout = 3; // Adjust the timeout value as needed
+        curl_setopt($handle, CURLOPT_TIMEOUT, $timeout);
+
+        $response = curl_exec($handle);
+        $code = curl_getinfo($handle, CURLINFO_HTTP_CODE);
         $content_type = curl_getinfo($handle, CURLINFO_CONTENT_TYPE);
-        $curl_errno   = curl_errno($handle);
-        $curl_error   = curl_error($handle);
+        $curl_errno = curl_errno($handle);
+        $curl_error = curl_error($handle);
         if ($curl_errno) {
             throw new HttpException($curl_error, $curl_errno);
         }
         $json_response = json_decode($response);
         if ($code != 200 && is_null($json_response)) {
-            throw new HttpException("Request have errors", $code);
+            throw new HttpException("Request has errors", $code);
         } else {
             $json_return = $json_response->return;
             if ($json_return->status != 200) {
@@ -69,9 +73,8 @@ class KavenegarApi
             }
             return $json_response->entries;
         }
-        
     }
-    	
+
     public function Send($sender, $receptor, $message, $date = null, $type = null, $localid = null)
     {
         if (is_array($receptor)) {
