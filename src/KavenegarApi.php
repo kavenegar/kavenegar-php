@@ -12,6 +12,8 @@ class KavenegarApi
 {
     const APIPATH = "%s://api.kavenegar.com/v1/%s/%s/%s.json/";
     const VERSION = "1.2.2";
+    private $apiKey = "";
+    private $insecure = false;
     public function __construct($apiKey,$insecure=false)
     {
         if (!extension_loaded('curl')) {
@@ -293,3 +295,4 @@ class KavenegarApi
         return $this->execute($path, $params);
     }
 }
+?>
