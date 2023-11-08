@@ -12,7 +12,7 @@ use Kavenegar\Enums\General;
 class KavenegarApi
 {
     const APIPATH = "%s://api.kavenegar.com/v1/%s/%s/%s.json/";
-    const VERSION = "1.2.2";
+    const VERSION = "2.0.0-dev";
     private $apiKey = "";
     private $insecure = false;
     public function __construct($apiKey, $insecure=false)
@@ -189,7 +189,6 @@ class KavenegarApi
             "messageid" => is_array($messageid) ? implode(",", $messageid) : $messageid
         );
         return $this->execute($path,$params);
-
     }
 
     public function Receive($linenumber, $isread = 0)
@@ -294,4 +293,3 @@ class KavenegarApi
         return $this->execute($path, $params);
     }
 }
-?>
