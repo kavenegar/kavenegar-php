@@ -2,6 +2,7 @@
     "name": "kavenegar/php",
     "type": "library",
     "description": "A PHP wrapper for Kavenegar's API",
+    "version": "2.0.0-dev",
     "keywords": ["kavenegar", "sms", "api"],
     "homepage": "http://github.com/Kavenegar/kavenegar-php",
     "license": "MIT",
@@ -12,7 +13,7 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=8.1"
     },
     "autoload": {
         "psr-4": {
