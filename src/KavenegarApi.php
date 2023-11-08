@@ -24,15 +24,15 @@ class KavenegarApi
         }
         $this->apiKey = trim($apiKey);
         $this->insecure = $insecure;
-    }   
-    
+    }
+
 	protected function get_path($method, $base = 'sms')
     {
         return sprintf(self::APIPATH,$this->insecure==true ? "http": "https", $this->apiKey, $base, $method);
     }
-	
+
 	protected function execute($url, $data = null)
-    {        
+    {
         $headers       = array(
             'Accept: application/json',
             'Content-Type: application/x-www-form-urlencoded',
@@ -50,7 +50,7 @@ class KavenegarApi
         curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($handle, CURLOPT_POST, true);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $fields_string);
-        
+
         $response     = curl_exec($handle);
         $code         = curl_getinfo($handle, CURLINFO_HTTP_CODE);
         $content_type = curl_getinfo($handle, CURLINFO_CONTENT_TYPE);
@@ -69,9 +69,9 @@ class KavenegarApi
             }
             return $response;
         }
-        
+
     }
-    	
+
     public function Send($sender, $receptor, $message, $date = null, $type = null, $localid = null)
     {
         if (is_array($receptor)) {
@@ -91,7 +91,7 @@ class KavenegarApi
         );
         return $this->execute($path, $params);
     }
-    
+
     public function SendArray($sender, $receptor, $message, $date = null, $type = null, $localmessageid = null)
     {
         if (!is_array($receptor)) {
@@ -121,16 +121,16 @@ class KavenegarApi
         );
         return $this->execute($path, $params);
     }
-    
+
     public function Status($messageid)
     {
         $path = $this->get_path("status");
 		$params = array(
             "messageid" => is_array($messageid) ? implode(",", $messageid) : $messageid
         );
-        return $this->execute($path,$params);      
+        return $this->execute($path,$params);
     }
-    
+
     public function StatusLocalMessageId($localid)
     {
         $path = $this->get_path("statuslocalmessageid");
@@ -139,16 +139,16 @@ class KavenegarApi
         );
         return $this->execute($path, $params);
     }
-    
+
     public function Select($messageid)
     {
 		$params = array(
             "messageid" => is_array($messageid) ? implode(",", $messageid) : $messageid
         );
         $path = $this->get_path("select");
-        return $this->execute($path, $params);       
+        return $this->execute($path, $params);
     }
-    
+
     public function SelectOutbox($startdate, $enddate, $sender)
     {
         $path   = $this->get_path("selectoutbox");
@@ -159,7 +159,7 @@ class KavenegarApi
         );
         return $this->execute($path, $params);
     }
-    
+
     public function LatestOutbox($pagesize, $sender)
     {
         $path   = $this->get_path("latestoutbox");
@@ -169,7 +169,7 @@ class KavenegarApi
         );
         return $this->execute($path, $params);
     }
-    
+
     public function CountOutbox($startdate, $enddate, $status = 0)
     {
         $path   = $this->get_path("countoutbox");
@@ -180,7 +180,7 @@ class KavenegarApi
         );
         return $this->execute($path, $params);
     }
-    
+
     public function Cancel($messageid)
     {
         $path = $this->get_path("cancel");
@@ -188,9 +188,9 @@ class KavenegarApi
             "messageid" => is_array($messageid) ? implode(",", $messageid) : $messageid
         );
         return $this->execute($path,$params);
-        
+
     }
-    
+
     public function Receive($linenumber, $isread = 0)
     {
         $path   = $this->get_path("receive");
@@ -200,7 +200,7 @@ class KavenegarApi
         );
         return $this->execute($path, $params);
     }
-    
+
     public function CountInbox($startdate, $enddate, $linenumber, $isread = 0)
     {
         $path   = $this->get_path("countinbox");
@@ -212,7 +212,7 @@ class KavenegarApi
         );
         return $this->execute($path, $params);
     }
-    
+
     public function CountPostalcode($postalcode)
     {
         $path   = $this->get_path("countpostalcode");
@@ -221,7 +221,7 @@ class KavenegarApi
         );
         return $this->execute($path, $params);
     }
-    
+
     public function SendbyPostalcode($sender,$postalcode,$message, $mcistartindex, $mcicount, $mtnstartindex, $mtncount, $date)
     {
         $path   = $this->get_path("sendbypostalcode");
@@ -237,13 +237,13 @@ class KavenegarApi
         );
         return $this->execute($path, $params);
     }
-    
+
     public function AccountInfo()
     {
         $path = $this->get_path("info", "account");
         return $this->execute($path);
-    } 
-    
+    }
+
     public function AccountConfig($apilogs, $dailyreport, $debug, $defaultsender, $mincreditalarm, $resendfailed)
     {
         $path   = $this->get_path("config", "account");
@@ -258,7 +258,7 @@ class KavenegarApi
         return $this->execute($path, $params);
     }
 
-    public function VerifyLookup($receptor, $token, $token2, $token3, $template, $type = null)
+    public function VerifyLookup($receptor, $token, $token2, $token3, $template, $token10 = null, $token20 = null, $type = null)
     {
         $path   = $this->get_path("lookup", "verify");
         $params = array(
@@ -266,6 +266,8 @@ class KavenegarApi
             "token" => $token,
             "token2" => $token2,
             "token3" => $token3,
+            "token10" => $token10,
+            "token20" => $token20,
             "template" => $template,
             "type" => $type
         );
@@ -275,9 +277,9 @@ class KavenegarApi
                 $params["token10"]=$arg_list[6];
             if(isset($arg_list[7]))
                 $params["token20"]=$arg_list[7];
-        } 
-        return $this->execute($path, $params); 
-    }  
+        }
+        return $this->execute($path, $params);
+    }
 
     public function CallMakeTTS($receptor, $message, $date = null, $localid = null)
     {
@@ -288,6 +290,6 @@ class KavenegarApi
             "date" => $date,
             "localid" => $localid
         );
-        return $this->execute($path, $params); 
+        return $this->execute($path, $params);
     }
 }
