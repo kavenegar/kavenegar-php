@@ -1,0 +1,31 @@
+# Dependencies
+/vendor/
+composer.phar
+composer.lock
+
+# Testing & Coverage
+/.phpunit.result.cache
+/.phpunit.cache/
+/coverage/
+/build/
+
+# Environment and Logs
+.env
+.env.local
+.env.*.local
+*.log
+php_errors.log
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*~
+
+# Operating System Files
+.DS_Store
+Thumbs.db
