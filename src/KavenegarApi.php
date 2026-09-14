@@ -14,8 +14,10 @@ class KavenegarApi
     protected $apiKey;
     protected $insecure;
     protected $baseUrl;
+    protected $curlHandle = null;
+    protected $sslVerify = false;
 
-    public function __construct($apiKey, $insecure = false, $baseUrl = null)
+    public function __construct($apiKey, $insecure = false, $baseUrl = null, $sslVerify = false)
     {
         if (!extension_loaded('curl')) {
             die('cURL library is not loaded');
@@ -26,8 +28,35 @@ class KavenegarApi
             exit;
         }
         $this->apiKey = trim($apiKey);
-        $this->insecure = $insecure;
+        $this->insecure = (bool)$insecure;
         $this->baseUrl = $baseUrl;
+        $this->sslVerify = (bool)$sslVerify;
+    }
+
+    public function setSslVerify($sslVerify)
+    {
+        $this->sslVerify = (bool)$sslVerify;
+        return $this;
+    }
+
+    public function getSslVerify()
+    {
+        return $this->sslVerify;
+    }
+
+    public function __destruct()
+    {
+        $this->close();
+    }
+
+    public function close()
+    {
+        if ($this->curlHandle !== null) {
+            if (is_resource($this->curlHandle) || $this->curlHandle instanceof \CurlHandle) {
+                curl_close($this->curlHandle);
+            }
+            $this->curlHandle = null;
+        }
     }
 
     protected function get_path($method, $base = 'sms')
@@ -42,7 +71,9 @@ class KavenegarApi
     {
         $headers = array(
             'Accept: application/json',
-            'charset: utf-8'
+            'charset: utf-8',
+            'User-Agent: Kavenegar-PHP/' . self::VERSION,
+            'Connection: keep-alive'
         );
 
         $isMultipart = false;
@@ -68,7 +99,14 @@ class KavenegarApi
             }
         }
 
-        $handle = curl_init();
+        if ($this->curlHandle === null) {
+            $this->curlHandle = curl_init();
+        } else {
+            if (function_exists('curl_reset')) {
+                curl_reset($this->curlHandle);
+            }
+        }
+        $handle = $this->curlHandle;
 
         $method = strtoupper($method);
         if ($method === 'GET' || $method === 'DELETE') {
@@ -76,7 +114,9 @@ class KavenegarApi
                 $url .= (strpos($url, '?') === false ? '?' : '&') . $fields_string;
             }
             curl_setopt($handle, CURLOPT_CUSTOMREQUEST, $method);
+            curl_setopt($handle, CURLOPT_HTTPGET, true);
         } else {
+            curl_setopt($handle, CURLOPT_CUSTOMREQUEST, $method);
             curl_setopt($handle, CURLOPT_POST, true);
             curl_setopt($handle, CURLOPT_POSTFIELDS, $fields_string);
         }
@@ -84,16 +124,32 @@ class KavenegarApi
         curl_setopt($handle, CURLOPT_URL, $url);
         curl_setopt($handle, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($handle, CURLOPT_TIMEOUT, 30);
+
+        // SSL verification
+        $verifySsl = (bool)$this->sslVerify;
+        curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, $verifySsl);
+        curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, $verifySsl ? 2 : 0);
+
+        // TCP Keep-Alive
+        if (defined('CURLOPT_TCP_KEEPALIVE')) {
+            curl_setopt($handle, CURLOPT_TCP_KEEPALIVE, 1);
+            if (defined('CURLOPT_TCP_KEEPIDLE')) {
+                curl_setopt($handle, CURLOPT_TCP_KEEPIDLE, 120);
+            }
+            if (defined('CURLOPT_TCP_KEEPINTVL')) {
+                curl_setopt($handle, CURLOPT_TCP_KEEPINTVL, 60);
+            }
+        }
 
         $response     = curl_exec($handle);
         $code         = curl_getinfo($handle, CURLINFO_HTTP_CODE);
         $curl_errno   = curl_errno($handle);
         $curl_error   = curl_error($handle);
-        curl_close($handle);
 
         if ($curl_errno) {
+            $this->close();
             throw new HttpException($curl_error, $curl_errno);
         }
         $json_response = json_decode($response);
