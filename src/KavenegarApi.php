@@ -9,7 +9,7 @@ use Kavenegar\Exceptions\RuntimeException;
 class KavenegarApi
 {
     const APIPATH = "%s://api.kavenegar.com/v1/%s/%s/%s.json/";
-    const VERSION = "1.2.2";
+    const VERSION = "2.1.0";
 
     protected $apiKey;
     protected $insecure;
@@ -488,69 +488,24 @@ class KavenegarApi
 
     public function verifyLookup($receptor, $token, $token2 = null, $token3 = null, $template = null, $type = null, $token10 = null, $token20 = null, $tag = null)
     {
-        $args = func_get_args();
-        $num = count($args);
-
+        $path = $this->get_path("lookup", "verify");
         $params = array(
             "receptor" => $receptor,
             "token" => $token,
+            "token2" => $token2,
+            "token3" => $token3,
+            "template" => $template,
+            "type" => $type,
         );
-
-        if ($num === 3) {
-            $params["template"] = $args[2];
-        } elseif ($num === 4) {
-            if (is_int($args[3]) || $args[3] === 'sms' || $args[3] === 'call') {
-                $params["template"] = $args[2];
-                $params["type"] = $args[3];
-            } else {
-                $params["token2"] = $args[2];
-                $params["template"] = $args[3];
-            }
-        } elseif ($num === 5) {
-            if (is_int($args[4]) || $args[4] === 'sms' || $args[4] === 'call') {
-                $params["token2"] = $args[2];
-                $params["template"] = $args[3];
-                $params["type"] = $args[4];
-            } else {
-                $params["token2"] = $args[2];
-                $params["token3"] = $args[3];
-                $params["template"] = $args[4];
-            }
-        } elseif ($num === 6) {
-            if (is_int($args[5]) || $args[5] === 'sms' || $args[5] === 'call') {
-                $params["token2"] = $args[2];
-                $params["token3"] = $args[3];
-                $params["template"] = $args[4];
-                $params["type"] = $args[5];
-            } else {
-                $params["token2"] = $args[2];
-                $params["token3"] = $args[3];
-                $params["token10"] = $args[4];
-                $params["template"] = $args[5];
-            }
-        } elseif ($num === 7) {
-            $params["token2"] = $args[2];
-            $params["token3"] = $args[3];
-            $params["token10"] = $args[4];
-            $params["template"] = $args[5];
-            $params["type"] = $args[6];
-        } elseif ($num >= 8) {
-            $params["token2"] = $args[2];
-            $params["token3"] = $args[3];
-            $params["token10"] = $args[4];
-            $params["token20"] = $args[5];
-            $params["template"] = $args[6];
-            $params["type"] = $args[7];
-            if (isset($args[8])) {
-                $params["tag"] = $args[8];
-            }
+        if (!is_null($token10)) {
+            $params["token10"] = $token10;
         }
-        
-        if (!is_null($tag) && !isset($params["tag"])) {
+        if (!is_null($token20)) {
+            $params["token20"] = $token20;
+        }
+        if (!is_null($tag)) {
             $params["tag"] = $tag;
         }
-
-        $path = $this->get_path("lookup", "verify");
         return $this->map($this->execute($path, $params), '\Kavenegar\Models\SendResult');
     }
 
