@@ -15,69 +15,69 @@ class VerifyTests extends BaseTestCase
         return $api;
     }
 
-    public function testVerifyLookupOverload1()
+    public function testVerifyLookup1()
     {
         $api = $this->getApi();
-        $res = $api->verifyLookup(self::getReceptor(), "token123", self::getTemplate());
+        $res = $api->verifyLookup(self::getReceptor(), "token123", null, null, self::getTemplate());
         $this->assertNotNull($res);
     }
 
-    public function testVerifyLookupOverload2()
+    public function testVerifyLookup2()
     {
         $api = $this->getApi();
-        $res = $api->verifyLookup(self::getReceptor(), "token123", self::getTemplate(), "sms");
+        $res = $api->verifyLookup(self::getReceptor(), "token123", null, null, self::getTemplate(), "sms");
         $this->assertNotNull($res);
     }
 
-    public function testVerifyLookupOverload3()
+    public function testVerifyLookup3()
     {
         $api = $this->getApi();
-        $res = $api->verifyLookup(self::getReceptor(), "token123", "token456", self::getTemplate());
+        $res = $api->verifyLookup(self::getReceptor(), "token123", "token456", null, self::getTemplate());
         $this->assertNotNull($res);
     }
 
-    public function testVerifyLookupOverload4()
+    public function testVerifyLookup4()
     {
         $api = $this->getApi();
-        $res = $api->verifyLookup(self::getReceptor(), "token123", "token456", self::getTemplate(), "sms");
+        $res = $api->verifyLookup(self::getReceptor(), "token123", "token456", null, self::getTemplate(), "sms");
         $this->assertNotNull($res);
     }
 
-    public function testVerifyLookupOverload5()
+    public function testVerifyLookup5()
     {
         $api = $this->getApi();
         $res = $api->verifyLookup(self::getReceptor(), "token123", "token456", "token789", self::getTemplate());
         $this->assertNotNull($res);
     }
 
-    public function testVerifyLookupOverload6()
+    public function testVerifyLookup6()
     {
         $api = $this->getApi();
         $res = $api->verifyLookup(self::getReceptor(), "token123", "token456", "token789", self::getTemplate(), "sms");
         $this->assertNotNull($res);
     }
 
-    public function testVerifyLookupOverload7()
+    public function testVerifyLookup7()
     {
         $api = $this->getApi();
-        // receptor, token, token2, token3, token10, template
-        $res = $api->verifyLookup(self::getReceptor(), "token1", "token2", "token3", "token10", self::getTemplate());
+        // receptor, token, token2, token3, template, type, token10
+        $res = $api->verifyLookup(self::getReceptor(), "token1", "token2", "token3", self::getTemplate(), null, "token10");
         $this->assertNotNull($res);
     }
 
-    public function testVerifyLookupOverload8()
+    public function testVerifyLookup8()
     {
         $api = $this->getApi();
-        // receptor, token, token2, token3, token10, template, type
-        $res = $api->verifyLookup(self::getReceptor(), "token1", "token2", "token3", "token10", self::getTemplate(), "sms");
+        // receptor, token, token2, token3, template, type, token10
+        $res = $api->verifyLookup(self::getReceptor(), "token1", "token2", "token3", self::getTemplate(), "sms", "token10");
         $this->assertNotNull($res);
     }
 
-    public function testVerifyLookupOverload9()
+    public function testVerifyLookup9()
     {
         $api = $this->getApi();
-        // receptor, token, token2, token3, token10, token20, template, type, tag
-        $res = $api->verifyLookup(self::getReceptor(), "token1", "token2", "token3", "token10", "token20", self::getTemplate(), "sms", "my_tag");
+        // receptor, token, token2, token3, template, type, token10, token20, tag
+        $res = $api->verifyLookup(self::getReceptor(), "token1", "token2", "token3", self::getTemplate(), "sms", "token10", "token20", "my_tag");
         $this->assertNotNull($res);
     }
 
